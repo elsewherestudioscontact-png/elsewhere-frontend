@@ -6,8 +6,17 @@ const Shop = ({ onAddToCart }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    axios.get('http://localhost:5000/api/products').then(res => { setProducts(res.data); setLoading(false); }).catch(err => { console.error(err); setLoading(false); });
-  }, []);
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  axios.get(`${API_URL}/api/products`).then(res => { 
+    setProducts(res.data); 
+    setLoading(false); 
+  }).catch(err => { 
+    console.error(err); 
+    setLoading(false); 
+  });
+}, []);
+
+
   return (
     <div style={{ paddingTop: '120px', minHeight: '100vh', background: '#fff' }}>
       <div style={{ padding: '0 48px 80px' }}>
